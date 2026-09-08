@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9889fde9eddfc447af0f4a31b01ae4b, type: 3}
   m_Name: EnemyContext
   m_EditorClassIdentifier: Assembly-CSharp::UnityDemo.Enemy.EnemyContext
-  <WalkSpeed>k__BackingField: 4
+  <WalkSpeed>k__BackingField: 3
   <TurnSpeed>k__BackingField: 150
   <Direction>k__BackingField: 1
-  <StopInterval>k__BackingField: 10
-  <StopTime>k__BackingField: 2
+  <StopInterval>k__BackingField: 5
+  <StopTime>k__BackingField: 1
   <WaypointPath>k__BackingField: {fileID: 0}

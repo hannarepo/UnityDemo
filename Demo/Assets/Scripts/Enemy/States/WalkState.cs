@@ -12,27 +12,27 @@ namespace UnityDemo.Enemy
         {
             base.Enter();
             if (_path.Type == WaypointPath.PathType.DelayLoop || _path.Type == WaypointPath.PathType.DelayPingPong)
-			{
-				_isStopped = false;
-			}
+            {
+                _isStopped = false;
+            }
         }
 
         public override void FixedUpdateState()
-		{
-			base.FixedUpdateState();
-			CheckTransition();
-		}
+        {
+            base.FixedUpdateState();
+            CheckTransition();
+        }
 
         public override void CheckTransition()
         {
             if (_canSeePlayer)
-			{
-				_enemyContext.EnemyController.ChangeState(EnemyStates.Aggro);
-			}
-			else if (_isStopped)
-			{
-				_enemyContext.EnemyController.ChangeState(EnemyStates.Idle);
-			}
+            {
+                _enemyContext.EnemyController.ChangeState(EnemyStates.Aggro);
+            }
+            else if (_isStopped)
+            {
+                _enemyContext.EnemyController.ChangeState(EnemyStates.Idle);
+            }
         }
     }
 }

@@ -10,15 +10,15 @@ namespace UnityDemo.Enemy
         private Vector3 _movementDirection = Vector3.zero;
         private float _distanceTravelled = 0f;
         private bool _isMovingToStart = false;
-        private Timer _stopTimer = null;
+        private Timer _stopIntervalTimer = null;
 
         public MovementState(EnemyStates state, EnemyStates transitions, EnemyContext enemyContext) : base(state, transitions, enemyContext)
         {
+            _stopIntervalTimer = new Timer(_enemyContext.StopInterval);
         }
 
         public override void Enter()
         {
-            _stopTimer = new Timer(_enemyContext.StopInterval);
             if (_path == null)
             {
                 SetWaypointPath(_enemyContext.WaypointPath);
@@ -49,7 +49,7 @@ namespace UnityDemo.Enemy
             {
                 MoveAlongSpline();
             }
-            _stopTimer.UpdateTimer(Time.deltaTime);
+            _stopIntervalTimer.UpdateTimer(Time.deltaTime);
         }
 
         #region Path related
@@ -82,6 +82,7 @@ namespace UnityDemo.Enemy
             _enemyContext.Direction = _enemyContext.Direction == WaypointPath.Direction.Forward
                 ? WaypointPath.Direction.Backward
                 : WaypointPath.Direction.Forward;
+            Debug.Log("Direction " + _enemyContext.Direction);
         }
 
         #endregion
@@ -133,14 +134,14 @@ namespace UnityDemo.Enemy
 
             // If the stop timer is finished, move towards the target position.
             // Otherwise, stop the enemy and reset the timer.
-            if (!_stopTimer.IsTimerFinished())
+            if (!_stopIntervalTimer.IsTimerFinished())
             {
                 Move(position - _enemyContext.Transform.position, _enemyContext.WalkSpeed);
             }
             else
             {
                 _isStopped = true;
-                _stopTimer.ResetTimer();
+                _stopIntervalTimer.ResetTimer();
             }
         }
 
