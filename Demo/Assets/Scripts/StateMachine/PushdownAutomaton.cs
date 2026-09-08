@@ -40,6 +40,7 @@ namespace UnityDemo
             _stack = new Stack<T>();
             _stack.Push(initialState);
             _states = CreateStateLookUpTable(states);
+            _currentState = GetState(initialState);
         }
 
         /// <summary>

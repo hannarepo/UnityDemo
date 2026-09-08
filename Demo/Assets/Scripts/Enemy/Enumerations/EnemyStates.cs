@@ -5,6 +5,7 @@ namespace UnityDemo.Enemy
         None = 0,
         Idle,
         Movement,
+        Walk,
         Aggro,
         Attack,
         Cooldown,

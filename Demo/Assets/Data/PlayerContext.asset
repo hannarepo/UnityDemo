@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c11b09bbc57b5438b7e9b1a4a4ae4e, type: 3}
   m_Name: PlayerContext
   m_EditorClassIdentifier: Assembly-CSharp::PlayerContext
-  WalkSpeed: 5
-  RunSpeed: 10
-  WalkSpeedAttacking: 3
+  <WalkSpeed>k__BackingField: 5
+  <RotationSpeed>k__BackingField: 720
+  <RunSpeed>k__BackingField: 8
+  <WalkSpeedAttacking>k__BackingField: 4

@@ -5,5 +5,10 @@ namespace UnityDemo.Enemy
         public HurtState(EnemyStates state, EnemyStates transitions, EnemyContext enemyContext) : base(state, transitions, enemyContext)
         {
         }
+
+        public override void UpdateState()
+        {
+
+        }
     }
 }

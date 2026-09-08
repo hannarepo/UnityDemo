@@ -5,24 +5,44 @@ namespace UnityDemo.Player
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] private PlayerContext _playerContext = null;
-        private PlayerControls _controls;
-        private PushdownAutomaton<PlayerStates> _pushdownAutomaton;
+        [SerializeField] private Transform _camera = null;
+        private PlayerControls _controls = null;
+        private PushdownAutomaton<PlayerStates> _pushdownAutomaton = null;
+        private Health _health = null;
+
+        #region Unity Methods
 
         private void Awake()
         {
             _controls = new PlayerControls();
+            _playerContext.Controls = _controls;
+            _playerContext.PlayerTransform = transform;
+            _playerContext.CameraTransform = _camera;
+            _playerContext.PlayerController = this;
+            _health = GetComponent<Health>();
             Initialize();
         }
 
         private void OnEnable()
         {
             _controls.Enable();
+            _health.OnDamage += OnTakeDamage;
         }
 
         private void OnDisable()
         {
             _controls.Disable();
+            _health.OnDamage -= OnTakeDamage;
         }
+
+        private void Update()
+        {
+            _pushdownAutomaton.UpdateState();
+        }
+
+        #endregion
+
+        #region Private Methods
 
         /// <summary>
         /// Initialize player states, state transitions and pushdown automaton.
@@ -57,9 +77,26 @@ namespace UnityDemo.Player
             _pushdownAutomaton = new PushdownAutomaton<PlayerStates>(playerStates, PlayerStates.Idle);
         }
 
-        private void Update()
+        private void OnTakeDamage(int currentHealth)
         {
-            _pushdownAutomaton.UpdateState();
+            if (currentHealth == 0) ChangeState(PlayerStates.Dead);
+            else ChangeState(PlayerStates.Hurt);
         }
+
+        #endregion
+
+        #region Public Methods
+
+        public void ChangeState(PlayerStates newState)
+        {
+            _pushdownAutomaton.Push(newState);
+        }
+
+        public void BackToPreviousState()
+        {
+            _pushdownAutomaton.Pop();
+        }
+
+        #endregion
     }
 }
