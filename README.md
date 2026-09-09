@@ -27,6 +27,7 @@ The enemy patrols on a waypoint path that can be either looping or a ping pong p
 
 ## Third party
 All art assets are from third parties, downloaded from Unity Asset Store.
+
 Environment art: Oode Studios | Low Poly Nature | [Asset Store Page](https://assetstore.unity.com/packages/3d/environments/low-poly-nature-260306)
 
 Player character art: Dungeon Mason | RPG Tiny Hero Duo PBR Polyart | [Asset Store Page](https://assetstore.unity.com/packages/3d/characters/humanoids/rpg-tiny-hero-duo-pbr-polyart-225148)
