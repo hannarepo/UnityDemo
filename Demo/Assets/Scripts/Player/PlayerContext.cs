@@ -16,5 +16,7 @@ namespace UnityDemo.Player
         public Transform PlayerTransform { get; set; }
         public Transform CameraTransform { get; set; }
         public PlayerController PlayerController { get; set; }
+        public Animator Animator { get; set; }
+        public float AttackTime { get; set; }
     }
 }

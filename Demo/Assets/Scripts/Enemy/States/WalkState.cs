@@ -11,7 +11,7 @@ namespace UnityDemo.Enemy
         public override void Enter()
         {
             base.Enter();
-            if (_path.Type == WaypointPath.PathType.DelayLoop || _path.Type == WaypointPath.PathType.DelayPingPong)
+                if (_path.Type == WaypointPath.PathType.DelayLoop || _path.Type == WaypointPath.PathType.DelayPingPong)
             {
                 _isStopped = false;
             }

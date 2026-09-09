@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace UnityDemo.Player
@@ -9,17 +10,33 @@ namespace UnityDemo.Player
         private PlayerControls _controls = null;
         private PushdownAutomaton<PlayerStates> _pushdownAutomaton = null;
         private Health _health = null;
+        private Animator _animator;
 
         #region Unity Methods
 
         private void Awake()
         {
             _controls = new PlayerControls();
+            _animator = GetComponent<Animator>();
+            _health = GetComponent<Health>();
+
+            AnimationClip[] clips = _animator.runtimeAnimatorController.animationClips;
+            foreach (AnimationClip clip in clips)
+            {
+                switch(clip.name)
+                {
+                    case "Attack":
+                        _playerContext.AttackTime = clip.length;
+                        break;
+                }
+            }
+
             _playerContext.Controls = _controls;
             _playerContext.PlayerTransform = transform;
             _playerContext.CameraTransform = _camera;
             _playerContext.PlayerController = this;
-            _health = GetComponent<Health>();
+            _playerContext.Animator = _animator;
+
             Initialize();
         }
 
@@ -52,13 +69,13 @@ namespace UnityDemo.Player
             PlayerStates idleTransitions = 
                 PlayerStates.Walk | PlayerStates.IdleAttack | PlayerStates.Hurt | PlayerStates.Dead;
             PlayerStates walkTransitions =
-                PlayerStates.Idle | PlayerStates.Run | PlayerStates.MovingAttack | PlayerStates.Hurt | PlayerStates.Dead;
+                PlayerStates.Idle | PlayerStates.Sprint | PlayerStates.MovingAttack | PlayerStates.Hurt | PlayerStates.Dead;
             PlayerStates runTransitions =
                 PlayerStates.Idle | PlayerStates.Walk | PlayerStates.Hurt | PlayerStates.Dead;
             PlayerStates idleAttackTransitions =
                 PlayerStates.Idle | PlayerStates.Walk | PlayerStates.Hurt | PlayerStates.Dead;
             PlayerStates movingAttackTransitions =
-                PlayerStates.Walk | PlayerStates.Run | PlayerStates.Idle | PlayerStates.Hurt | PlayerStates.Dead;
+                PlayerStates.Walk | PlayerStates.Sprint | PlayerStates.Idle | PlayerStates.Hurt | PlayerStates.Dead;
             PlayerStates hurtTransitions =
                 PlayerStates.Idle | PlayerStates.Dead;
             PlayerStates deadTransitions =
@@ -69,7 +86,7 @@ namespace UnityDemo.Player
                 new IdleState(PlayerStates.Idle, idleTransitions, _playerContext),
                 new IdleAttackState(PlayerStates.IdleAttack, idleAttackTransitions, _playerContext),
                 new WalkState(PlayerStates.Walk, walkTransitions, _playerContext),
-                new RunState(PlayerStates.Run, runTransitions, _playerContext),
+                new SprintState(PlayerStates.Sprint, runTransitions, _playerContext),
                 new MovingAttackState(PlayerStates.MovingAttack, movingAttackTransitions, _playerContext),
                 new HurtState(PlayerStates.Hurt, hurtTransitions, _playerContext),
                 new DeadState(PlayerStates.Dead, deadTransitions, _playerContext)

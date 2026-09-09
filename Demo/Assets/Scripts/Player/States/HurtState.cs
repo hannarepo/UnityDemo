@@ -33,7 +33,7 @@ namespace UnityDemo.Player
             {
                 if (_playerContext.Controls.Game.Sprint.WasPressedThisFrame())
                 {
-                    _playerContext.PlayerController.ChangeState(PlayerStates.Run);
+                    _playerContext.PlayerController.ChangeState(PlayerStates.Sprint);
                 }
                 _playerContext.PlayerController.ChangeState(PlayerStates.Walk);
             }

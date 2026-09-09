@@ -8,7 +8,7 @@ namespace UnityDemo
         Idle,
         Movement,
         Walk,
-        Run,
+        Sprint,
         IdleAttack,
         MovingAttack,
         Hurt,

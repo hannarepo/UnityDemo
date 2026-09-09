@@ -10,10 +10,12 @@ namespace UnityDemo.Player
 
         public override void Enter()
         {
+            _playerContext.Animator.SetBool("Idle", true);
         }
 
         public override void Exit()
         {
+            _playerContext.Animator.SetBool("Idle", false);
         }
 
         public override void UpdateState()
@@ -27,10 +29,14 @@ namespace UnityDemo.Player
             {
                 if (_playerContext.Controls.Game.Sprint.WasPressedThisFrame())
                 {
-                    _playerContext.PlayerController.ChangeState(PlayerStates.Run);
+                    _playerContext.PlayerController.ChangeState(PlayerStates.Sprint);
                     return;
                 }
                 _playerContext.PlayerController.ChangeState(PlayerStates.Walk);
+            }
+            if (_playerContext.Controls.Game.Attack.WasPressedThisFrame())
+            {
+                _playerContext.PlayerController.ChangeState(PlayerStates.IdleAttack);
             }
         }
     }

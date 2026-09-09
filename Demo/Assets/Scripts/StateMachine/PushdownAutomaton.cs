@@ -142,7 +142,7 @@ namespace UnityDemo
                 throw new ArgumentNullException("[PushdownAutomaton]: Cannot change state to null!");
             }
 
-            if (newState.Equals(_currentState)) return false;
+            if (newState.Equals(CurrentState)) return false;
 
             if (!_currentState.IsValidTransition(newState))
             {

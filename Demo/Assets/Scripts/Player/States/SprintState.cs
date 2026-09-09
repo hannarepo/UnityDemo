@@ -3,21 +3,21 @@ using UnityEngine.InputSystem;
 
 namespace UnityDemo.Player
 {
-    public class RunState : MovementState
+    public class SprintState : MovementState
     {
-        public RunState(PlayerStates state, PlayerStates transitions, PlayerContext playerContext) : base(state, transitions, playerContext)
+        public SprintState(PlayerStates state, PlayerStates transitions, PlayerContext playerContext) : base(state, transitions, playerContext)
         {
         }
 
         public override void Enter()
         {
-            // Change animation state
+            _playerContext.Animator.SetBool("Sprint", true);
             _playerContext.Controls.Game.Sprint.canceled += contextCancelled => OnSprintRelease(contextCancelled);
         }
 
         public override void Exit()
         {
-            // Change animation state;
+            _playerContext.Animator.SetBool("Sprint", false);
             _playerContext.Controls.Game.Sprint.canceled -= contextCancelled => OnSprintRelease(contextCancelled);
         }
 
