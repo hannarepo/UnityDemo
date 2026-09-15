@@ -10,8 +10,8 @@ namespace UnityDemo.Enemy
 
         public override void Enter()
         {
-            Debug.Log("Enemy died");
-            GameObject.Destroy(_enemyContext.EnemyController.gameObject);
+            Debug.Log("Dead");
+            _enemyContext.Animator.SetBool("Dead", true);
         }
     }
 }

@@ -7,10 +7,13 @@ namespace UnityDemo.Player
     {
         [SerializeField] private PlayerContext _playerContext = null;
         [SerializeField] private Transform _camera = null;
+        [SerializeField] private float _attackTime;
+        [SerializeField] private float _spinAttackTime;
+        [SerializeField] private PlayerWeapon _weapon = null;
         private PlayerControls _controls = null;
         private PushdownAutomaton<PlayerStates> _pushdownAutomaton = null;
         private Health _health = null;
-        private Animator _animator;
+        private Animator _animator = null;
 
         #region Unity Methods
 
@@ -20,22 +23,14 @@ namespace UnityDemo.Player
             _animator = GetComponent<Animator>();
             _health = GetComponent<Health>();
 
-            AnimationClip[] clips = _animator.runtimeAnimatorController.animationClips;
-            foreach (AnimationClip clip in clips)
-            {
-                switch(clip.name)
-                {
-                    case "Attack":
-                        _playerContext.AttackTime = clip.length;
-                        break;
-                }
-            }
-
             _playerContext.Controls = _controls;
             _playerContext.PlayerTransform = transform;
             _playerContext.CameraTransform = _camera;
             _playerContext.PlayerController = this;
             _playerContext.Animator = _animator;
+            _playerContext.AttackTime = _attackTime;
+            _playerContext.SpinAttackTime = _spinAttackTime;
+            _playerContext.Weapon = _weapon;
 
             Initialize();
         }
@@ -67,27 +62,27 @@ namespace UnityDemo.Player
         private void Initialize()
         {
             PlayerStates idleTransitions = 
-                PlayerStates.Walk | PlayerStates.IdleAttack | PlayerStates.Hurt | PlayerStates.Dead;
+                PlayerStates.Walk | PlayerStates.Sprint | PlayerStates.Attack | PlayerStates.SpinAttack | PlayerStates.Hurt | PlayerStates.Dead;
             PlayerStates walkTransitions =
-                PlayerStates.Idle | PlayerStates.Sprint | PlayerStates.MovingAttack | PlayerStates.Hurt | PlayerStates.Dead;
-            PlayerStates runTransitions =
+                PlayerStates.Idle | PlayerStates.Sprint | PlayerStates.Attack | PlayerStates.SpinAttack | PlayerStates.Hurt | PlayerStates.Dead;
+            PlayerStates sprintTransitions =
                 PlayerStates.Idle | PlayerStates.Walk | PlayerStates.Hurt | PlayerStates.Dead;
-            PlayerStates idleAttackTransitions =
-                PlayerStates.Idle | PlayerStates.Walk | PlayerStates.Hurt | PlayerStates.Dead;
-            PlayerStates movingAttackTransitions =
-                PlayerStates.Walk | PlayerStates.Sprint | PlayerStates.Idle | PlayerStates.Hurt | PlayerStates.Dead;
+            PlayerStates attackTransitions =
+                PlayerStates.Idle | PlayerStates.Walk | PlayerStates.SpinAttack | PlayerStates.Hurt | PlayerStates.Dead;
+            PlayerStates spinAttackTransitions =
+                PlayerStates.Walk | PlayerStates.Sprint | PlayerStates.Idle | PlayerStates.Attack | PlayerStates.Hurt | PlayerStates.Dead;
             PlayerStates hurtTransitions =
-                PlayerStates.Idle | PlayerStates.Dead;
+                PlayerStates.Idle | PlayerStates.Walk | PlayerStates.Sprint | PlayerStates.Attack | PlayerStates.SpinAttack | PlayerStates.Dead;
             PlayerStates deadTransitions =
                 PlayerStates.None;
 
             PlayerStateBase[] playerStates =
             {
                 new IdleState(PlayerStates.Idle, idleTransitions, _playerContext),
-                new IdleAttackState(PlayerStates.IdleAttack, idleAttackTransitions, _playerContext),
+                new AttackState(PlayerStates.Attack, attackTransitions, _playerContext),
                 new WalkState(PlayerStates.Walk, walkTransitions, _playerContext),
-                new SprintState(PlayerStates.Sprint, runTransitions, _playerContext),
-                new MovingAttackState(PlayerStates.MovingAttack, movingAttackTransitions, _playerContext),
+                new SprintState(PlayerStates.Sprint, sprintTransitions, _playerContext),
+                new SpinAttackState(PlayerStates.SpinAttack, spinAttackTransitions, _playerContext),
                 new HurtState(PlayerStates.Hurt, hurtTransitions, _playerContext),
                 new DeadState(PlayerStates.Dead, deadTransitions, _playerContext)
             };
@@ -96,6 +91,7 @@ namespace UnityDemo.Player
 
         private void OnTakeDamage(int currentHealth)
         {
+            Debug.Log("Player took damage, current health: " + currentHealth);
             if (currentHealth == 0) ChangeState(PlayerStates.Dead);
             else ChangeState(PlayerStates.Hurt);
         }

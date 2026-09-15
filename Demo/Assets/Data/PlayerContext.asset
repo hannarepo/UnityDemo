@@ -15,4 +15,6 @@ MonoBehaviour:
   <WalkSpeed>k__BackingField: 5
   <RotationSpeed>k__BackingField: 720
   <RunSpeed>k__BackingField: 8
-  <WalkSpeedAttacking>k__BackingField: 4
+  <AttackTime>k__BackingField: 0.4
+  <SpinAttackTime>k__BackingField: 0.55
+  <HurtTime>k__BackingField: 0.8

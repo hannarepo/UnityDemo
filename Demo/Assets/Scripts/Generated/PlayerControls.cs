@@ -120,6 +120,15 @@ namespace UnityDemo
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpinAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""a757f3a4-a3a4-450a-885d-9e51111a1b67"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -276,6 +285,28 @@ namespace UnityDemo
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""76dcbf6c-03c6-4795-a0e4-5a2df8ea4bee"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpinAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b5ab2167-a4af-4cb7-bec3-56490f6229ce"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpinAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -287,6 +318,7 @@ namespace UnityDemo
             m_Game_Move = m_Game.FindAction("Move", throwIfNotFound: true);
             m_Game_Attack = m_Game.FindAction("Attack", throwIfNotFound: true);
             m_Game_Sprint = m_Game.FindAction("Sprint", throwIfNotFound: true);
+            m_Game_SpinAttack = m_Game.FindAction("SpinAttack", throwIfNotFound: true);
         }
 
         ~@PlayerControls()
@@ -370,6 +402,7 @@ namespace UnityDemo
         private readonly InputAction m_Game_Move;
         private readonly InputAction m_Game_Attack;
         private readonly InputAction m_Game_Sprint;
+        private readonly InputAction m_Game_SpinAttack;
         /// <summary>
         /// Provides access to input actions defined in input action map "Game".
         /// </summary>
@@ -393,6 +426,10 @@ namespace UnityDemo
             /// Provides access to the underlying input action "Game/Sprint".
             /// </summary>
             public InputAction @Sprint => m_Wrapper.m_Game_Sprint;
+            /// <summary>
+            /// Provides access to the underlying input action "Game/SpinAttack".
+            /// </summary>
+            public InputAction @SpinAttack => m_Wrapper.m_Game_SpinAttack;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -428,6 +465,9 @@ namespace UnityDemo
                 @Sprint.started += instance.OnSprint;
                 @Sprint.performed += instance.OnSprint;
                 @Sprint.canceled += instance.OnSprint;
+                @SpinAttack.started += instance.OnSpinAttack;
+                @SpinAttack.performed += instance.OnSpinAttack;
+                @SpinAttack.canceled += instance.OnSpinAttack;
             }
 
             /// <summary>
@@ -448,6 +488,9 @@ namespace UnityDemo
                 @Sprint.started -= instance.OnSprint;
                 @Sprint.performed -= instance.OnSprint;
                 @Sprint.canceled -= instance.OnSprint;
+                @SpinAttack.started -= instance.OnSpinAttack;
+                @SpinAttack.performed -= instance.OnSpinAttack;
+                @SpinAttack.canceled -= instance.OnSpinAttack;
             }
 
             /// <summary>
@@ -509,6 +552,13 @@ namespace UnityDemo
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnSprint(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "SpinAttack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnSpinAttack(InputAction.CallbackContext context);
         }
     }
 }

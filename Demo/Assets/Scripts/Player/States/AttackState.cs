@@ -2,29 +2,35 @@ using UnityEngine;
 
 namespace UnityDemo.Player
 {
-    public class IdleAttackState : MovementState
+    public class AttackState : PlayerStateBase
     {
-        private Timer _animationTimer;
+        private Timer _attackTimer;
 
-        public IdleAttackState(PlayerStates state, PlayerStates transitions, PlayerContext playerContext) : base(state, transitions, playerContext)
+        public AttackState(PlayerStates state, PlayerStates transitions, PlayerContext playerContext) : base(state, transitions, playerContext)
         {
-            _animationTimer = new Timer(playerContext.AttackTime);
+            _attackTimer = new Timer(playerContext.AttackTime);
         }
 
         public override void Enter()
         {
-            _playerContext.Animator.SetTrigger("IdleAttack");
+            _playerContext.Weapon.TryDealDamage(PlayerStates.Attack);
+            _playerContext.Animator.SetTrigger("Attack");
+        }
+
+        public override void Exit()
+        {
+            _attackTimer.ResetTimer();
         }
 
         public override void UpdateState()
         {
-            _animationTimer.UpdateTimer(Time.deltaTime);
+            _attackTimer.UpdateTimer(Time.deltaTime);
             CheckTransition();
         }
 
         public override void CheckTransition()
         {
-            if (_animationTimer.IsTimerFinished())
+            if (_attackTimer.IsTimerFinished())
             {
                 if (_playerContext.Controls.Game.Move.ReadValue<Vector2>() != Vector2.zero)
                 {

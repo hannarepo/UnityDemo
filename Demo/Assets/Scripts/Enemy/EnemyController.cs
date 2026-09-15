@@ -18,6 +18,8 @@ namespace UnityDemo.Enemy
             _enemyContext.Transform = transform;
             _enemyContext.WaypointPath = _path;
             _enemyContext.Rigidbody = GetComponent<Rigidbody>();
+            _enemyContext.Animator = GetComponent<Animator>();
+            _enemyContext.Weapon = GetComponentInChildren<EnemyWeapon>();
             Initialize();
         }
 
@@ -26,7 +28,7 @@ namespace UnityDemo.Enemy
             _health.OnDamage += OnTakeDamage;
         }
 
-        private void OnDissable()
+        private void OnDisable()
         {
             _health.OnDamage -= OnTakeDamage;
         }
@@ -40,6 +42,12 @@ namespace UnityDemo.Enemy
         {
             _stateMachine.FixedUpdateState();
         }
+
+        private void OnDrawGizmos()
+		{
+			Debug.DrawRay(transform.position, transform.forward * _enemyContext.VisionDistance, Color.red);
+			Gizmos.DrawWireSphere(transform.position, _enemyContext.SphereCastRadius);
+		}
 
         #endregion
 
@@ -57,25 +65,28 @@ namespace UnityDemo.Enemy
         private void Initialize()
         {
             EnemyStates idleTransitions = 
-                EnemyStates.Walk | EnemyStates.Aggro | EnemyStates.Attack | EnemyStates.Hurt | EnemyStates.Dead;
+                EnemyStates.Patrol | EnemyStates.Aggro | EnemyStates.Hurt | EnemyStates.Dead;
             EnemyStates walkTransitions =
-                EnemyStates.Idle | EnemyStates.Aggro | EnemyStates.Attack | EnemyStates.Hurt | EnemyStates.Dead;
+                EnemyStates.Idle | EnemyStates.Aggro | EnemyStates.Hurt | EnemyStates.Dead;
             EnemyStates aggroTransitions =
-                EnemyStates.Attack | EnemyStates.Hurt | EnemyStates.Dead;
+                EnemyStates.Idle | EnemyStates.Patrol |EnemyStates.Charge | EnemyStates.Attack | EnemyStates.Hurt | EnemyStates.Dead;
+            EnemyStates chargeTransitions =
+                EnemyStates.Idle | EnemyStates.Patrol | EnemyStates.Aggro | EnemyStates.Attack | EnemyStates.Hurt | EnemyStates.Dead;
             EnemyStates attackTransitions =
-                EnemyStates.Cooldown | EnemyStates.Hurt | EnemyStates.Dead;
+                EnemyStates.Cooldown;
             EnemyStates cooldownTransitions =
-                EnemyStates.Idle | EnemyStates.Walk | EnemyStates.Aggro | EnemyStates.Attack | EnemyStates.Hurt | EnemyStates.Dead;
+                EnemyStates.Idle | EnemyStates.Patrol | EnemyStates.Aggro | EnemyStates.Charge | EnemyStates.Attack | EnemyStates.Hurt | EnemyStates.Dead;
             EnemyStates hurtTransitions =
-                EnemyStates.Idle | EnemyStates.Dead;
+                EnemyStates.Idle | EnemyStates.Aggro | EnemyStates.Charge | EnemyStates.Attack | EnemyStates.Dead;
             EnemyStates deadTransitions =
                 EnemyStates.None;
 
             EnemyStateBase[] enemyStates =
             {
                 new IdleState(EnemyStates.Idle, idleTransitions, _enemyContext),
-                new WalkState(EnemyStates.Walk, walkTransitions, _enemyContext),
+                new PatrolState(EnemyStates.Patrol, walkTransitions, _enemyContext),
                 new AggroState(EnemyStates.Aggro, aggroTransitions, _enemyContext),
+                new ChargeState(EnemyStates.Charge, chargeTransitions, _enemyContext),
                 new AttackState(EnemyStates.Attack, attackTransitions, _enemyContext),
                 new CooldownState(EnemyStates.Cooldown, cooldownTransitions, _enemyContext),
                 new HurtState(EnemyStates.Hurt, hurtTransitions, _enemyContext),
@@ -86,8 +97,9 @@ namespace UnityDemo.Enemy
 
         private void OnTakeDamage(int currentHealth)
         {
+            Debug.Log("Enemy took damage, current health: " + currentHealth);
             if (currentHealth == 0) ChangeState(EnemyStates.Dead);
-            else ChangeState(EnemyStates.Hurt);
+            else if (_stateMachine.CurrentState.StateKey != EnemyStates.Attack) ChangeState(EnemyStates.Hurt);
         }
 
         #endregion

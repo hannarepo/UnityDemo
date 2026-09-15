@@ -8,10 +8,8 @@ namespace UnityDemo.Player
 
         public override void Enter()
         {
-        }
-
-        public override void UpdateState()
-        {
+            _playerContext.Controls.Game.Disable();
+            _playerContext.Animator.SetBool("Dead", true);
         }
     }
 }

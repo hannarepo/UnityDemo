@@ -173,7 +173,7 @@ namespace UnityDemo
         {
             Dictionary<T, State<T>> stateLookUpTable = new Dictionary<T, State<T>>();
 
-            for (int i = 0; i < states.Length - 1; i++)
+            for (int i = 0; i < states.Length; i++)
             {
                 T key = states[i].StateKey;
                 State<T> state = states[i];

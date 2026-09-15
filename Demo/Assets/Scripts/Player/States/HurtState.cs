@@ -1,41 +1,49 @@
+using NUnit.Framework;
 using UnityEngine;
 
 namespace UnityDemo.Player
 {
     public class HurtState : PlayerStateBase
     {
+        private Timer _hurtTimer;
+
         public HurtState(PlayerStates state, PlayerStates transitions, PlayerContext playerContext) : base(state, transitions, playerContext)
         {
+            _hurtTimer = new Timer(_playerContext.HurtTime);
         }
 
         public override void Enter()
         {
-            Debug.Log("Enter Hurt State");
+            _playerContext.Animator.SetTrigger("TakeDamage");
         }
 
         public override void Exit()
         {
-            Debug.Log("Exit Hurt State");
+            _hurtTimer.ResetTimer();
         }
 
         public override void UpdateState()
         {
+            _hurtTimer.UpdateTimer(Time.deltaTime);
             CheckTransition();
         }
 
         public override void CheckTransition()
         {
-            if (_playerContext.Controls.Game.Move.ReadValue<Vector2>() == Vector2.zero)
+            if (_hurtTimer.IsTimerFinished())
             {
-                _playerContext.PlayerController.ChangeState(PlayerStates.Idle);
-            }
-            else
-            {
-                if (_playerContext.Controls.Game.Sprint.WasPressedThisFrame())
+                if (_playerContext.Controls.Game.Move.ReadValue<Vector2>() == Vector2.zero)
                 {
-                    _playerContext.PlayerController.ChangeState(PlayerStates.Sprint);
+                    _playerContext.PlayerController.ChangeState(PlayerStates.Idle);
                 }
-                _playerContext.PlayerController.ChangeState(PlayerStates.Walk);
+                else
+                {
+                    if (_playerContext.Controls.Game.Sprint.WasPressedThisFrame())
+                    {
+                        _playerContext.PlayerController.ChangeState(PlayerStates.Sprint);
+                    }
+                    _playerContext.PlayerController.ChangeState(PlayerStates.Walk);
+                }
             }
         }
     }

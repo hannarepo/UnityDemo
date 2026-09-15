@@ -9,8 +9,8 @@ namespace UnityDemo
         Movement,
         Walk,
         Sprint,
-        IdleAttack,
-        MovingAttack,
+        Attack,
+        SpinAttack,
         Hurt,
         Dead
     }

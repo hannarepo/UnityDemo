@@ -36,7 +36,11 @@ namespace UnityDemo.Player
             }
             if (_playerContext.Controls.Game.Attack.WasPressedThisFrame())
             {
-                _playerContext.PlayerController.ChangeState(PlayerStates.IdleAttack);
+                _playerContext.PlayerController.ChangeState(PlayerStates.Attack);
+            }
+            if (_playerContext.Controls.Game.SpinAttack.WasPressedThisFrame())
+            {
+                _playerContext.PlayerController.ChangeState(PlayerStates.SpinAttack);
             }
         }
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace UnityDemo
@@ -10,6 +11,7 @@ namespace UnityDemo
     {
         [SerializeField] private int _maxHealth = 100;
         [SerializeField] private float _invulnerabilityTime = 1.0f;
+        [SerializeField] private float _destroyDelay = 1.0f;
         private int _currentHealth = 0;
         private Timer _invulnerabilityTimer = null;
 
@@ -41,6 +43,13 @@ namespace UnityDemo
             }
         }
 
+        private IEnumerator DestroyDelay()
+        {
+            yield return new WaitForSecondsRealtime(_destroyDelay);
+
+            Destroy(gameObject);
+        }
+
         #endregion
 
         #region Health Methods
@@ -51,7 +60,7 @@ namespace UnityDemo
         /// <param name="amount"> The amount to decrease health. </param>
         public void TakeDamage(int amount)
         {
-            if (IsInvulnerable) return;
+            if (IsInvulnerable || _currentHealth <= 0) return;
 
             amount = Mathf.Abs(amount);
 
@@ -63,6 +72,8 @@ namespace UnityDemo
             else if (_currentHealth <= amount)
             {
                 _currentHealth = 0;
+                StopAllCoroutines();
+                StartCoroutine(DestroyDelay());
             }
 
             if (OnDamage != null)

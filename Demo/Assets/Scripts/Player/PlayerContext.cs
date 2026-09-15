@@ -9,7 +9,6 @@ namespace UnityDemo.Player
         [field: SerializeField] public float WalkSpeed { get; set; }
         [field: SerializeField] public float RotationSpeed { get; set; }
         [field: SerializeField] public float RunSpeed {get; set; }
-        [field: SerializeField] public float WalkSpeedAttacking { get; set; }
 
         // Components
         public PlayerControls Controls { get; set; }
@@ -17,6 +16,11 @@ namespace UnityDemo.Player
         public Transform CameraTransform { get; set; }
         public PlayerController PlayerController { get; set; }
         public Animator Animator { get; set; }
-        public float AttackTime { get; set; }
+
+        // Combat
+        [field: SerializeField] public float AttackTime { get; set; }
+        [field: SerializeField] public float SpinAttackTime { get; set; }
+        [field: SerializeField] public float HurtTime { get; set; }
+        public PlayerWeapon Weapon { get; set; }
     }
 }

@@ -34,7 +34,7 @@ namespace UnityDemo.Enemy
         {
             if (_stopTimer.IsTimerFinished())
             {
-                _enemyContext.EnemyController.ChangeState(EnemyStates.Walk);
+                _enemyContext.EnemyController.ChangeState(EnemyStates.Patrol);
             }
             if (_canSeePlayer)
             {

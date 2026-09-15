@@ -18,3 +18,15 @@ MonoBehaviour:
   <StopInterval>k__BackingField: 5
   <StopTime>k__BackingField: 1
   <WaypointPath>k__BackingField: {fileID: 0}
+  <VisionDistance>k__BackingField: 15
+  <FieldOfVision>k__BackingField: 0.6
+  <SphereCastRadius>k__BackingField: 20
+  <SphereCastLayers>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 64
+  <HurtTime>k__BackingField: 0.4
+  <AggroTime>k__BackingField: 0.8
+  <ChargeSpeed>k__BackingField: 3
+  <AttackTime>k__BackingField: 0.5
+  <AttackDistance>k__BackingField: 4.5
+  <CooldownTime>k__BackingField: 2.5

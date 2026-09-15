@@ -112,13 +112,13 @@ namespace UnityDemo
         {
             Dictionary<T, State<T>> stateLookUpTable = new Dictionary<T, State<T>>();
 
-            for (int i = 0; i < states.Length - 1; i++)
+            for (int i = 0; i < states.Length; i++)
             {
                 T key = states[i].StateKey;
                 State<T> state = states[i];
                 if (stateLookUpTable.ContainsKey(key))
                 {
-                    throw new ArgumentException("[FiniteStateMachine]: Diplicate states are not allowed!");
+                    throw new ArgumentException("[FiniteStateMachine]: Duplicate states are not allowed!");
                 }
                 stateLookUpTable.Add(key, state);
             }
