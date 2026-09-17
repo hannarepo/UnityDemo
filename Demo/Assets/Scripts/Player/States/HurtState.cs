@@ -15,11 +15,13 @@ namespace UnityDemo.Player
         public override void Enter()
         {
             _playerContext.Animator.SetTrigger("TakeDamage");
+            _playerContext.Controls.Game.Disable();
         }
 
         public override void Exit()
         {
             _hurtTimer.ResetTimer();
+            _playerContext.Controls.Game.Enable();
         }
 
         public override void UpdateState()
@@ -32,6 +34,14 @@ namespace UnityDemo.Player
         {
             if (_hurtTimer.IsTimerFinished())
             {
+                if (_playerContext.Controls.Game.Attack.WasPressedThisFrame())
+                {
+                    _playerContext.PlayerController.ChangeState(PlayerStates.Attack);
+                }
+                if (_playerContext.Controls.Game.SpinAttack.WasPressedThisFrame())
+                {
+                    _playerContext.PlayerController.ChangeState(PlayerStates.SpinAttack);
+                }
                 if (_playerContext.Controls.Game.Move.ReadValue<Vector2>() == Vector2.zero)
                 {
                     _playerContext.PlayerController.ChangeState(PlayerStates.Idle);

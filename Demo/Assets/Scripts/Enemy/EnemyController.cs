@@ -73,7 +73,7 @@ namespace UnityDemo.Enemy
             EnemyStates chargeTransitions =
                 EnemyStates.Idle | EnemyStates.Patrol | EnemyStates.Aggro | EnemyStates.Attack | EnemyStates.Hurt | EnemyStates.Dead;
             EnemyStates attackTransitions =
-                EnemyStates.Cooldown;
+                EnemyStates.Cooldown | EnemyStates.Dead;
             EnemyStates cooldownTransitions =
                 EnemyStates.Idle | EnemyStates.Patrol | EnemyStates.Aggro | EnemyStates.Charge | EnemyStates.Attack | EnemyStates.Hurt | EnemyStates.Dead;
             EnemyStates hurtTransitions =

@@ -41,6 +41,7 @@ namespace UnityDemo.Enemy
                     _target = _path.GetNextWaypoint(_target, _enemyContext.Direction);
                     _movementDirection = _target.transform.position - _enemyContext.Transform.position;
                     _isMovingToStart = false;
+                    return;
                 }
                 FaceTowardsNextWaypoint(_target.transform.position);
                 Move(_movementDirection, _enemyContext.WalkSpeed);

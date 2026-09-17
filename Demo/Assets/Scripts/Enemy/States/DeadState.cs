@@ -10,7 +10,6 @@ namespace UnityDemo.Enemy
 
         public override void Enter()
         {
-            Debug.Log("Dead");
             _enemyContext.Animator.SetBool("Dead", true);
         }
     }

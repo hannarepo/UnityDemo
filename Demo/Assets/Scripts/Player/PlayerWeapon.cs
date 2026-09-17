@@ -47,13 +47,15 @@ namespace UnityDemo.Player
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!_canDealDamage) return;
+
             Health enemyHealth = other.GetComponent<Health>();
             if (enemyHealth == null)
             {
                 enemyHealth = other.GetComponentInParent<Health>();
             }
 
-            if (enemyHealth != null && _canDealDamage)
+            if (enemyHealth != null)
             {
                 if (_currentState == PlayerStates.Attack)
                 {

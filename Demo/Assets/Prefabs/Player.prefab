@@ -307,6 +307,7 @@ GameObject:
   - component: {fileID: 6138253173733989061}
   - component: {fileID: 6145053882418656133}
   - component: {fileID: 602037559493401509}
+  - component: {fileID: 1529474093213906311}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -394,6 +395,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!54 &1529474093213906311
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572016898731454049}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!1 &1819501908486799570
 GameObject:
   m_ObjectHideFlags: 0
@@ -2681,8 +2709,8 @@ MonoBehaviour:
   _damageLayers:
     serializedVersion: 2
     m_Bits: 8
-  _attackCooldownDuration: 0.7
-  _spinAttackCooldownDuration: 1.7
+  _attackCooldownDuration: 0.5
+  _spinAttackCooldownDuration: 0.7
 --- !u!4 &8683982212709261809 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4502165957148481221, guid: 3617e4093ca8d5145986d37c89cfd692, type: 3}

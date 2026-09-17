@@ -330,6 +330,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 635547659545568360, guid: 942e6d5330e147fe84c5ab6ab2193ca1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8246641796357923112}
+    - targetCorrespondingSourceObject: {fileID: 635547659545568360, guid: 942e6d5330e147fe84c5ab6ab2193ca1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5611214502865559416}
   m_SourcePrefab: {fileID: 100100000, guid: 942e6d5330e147fe84c5ab6ab2193ca1, type: 3}
 --- !u!4 &522658450269346067 stripped
 Transform:
@@ -360,8 +363,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.87
-  m_Center: {x: -0.4, y: 0.28, z: 0.05}
+  m_Radius: 0.75
+  m_Center: {x: -0.4, y: 0.28, z: 0}
 --- !u!114 &8246641796357923112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,3 +378,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnityDemo.Enemy.EnemyWeapon
   _damage: 15
+--- !u!135 &5611214502865559416
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584211556462434960}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Radius: 0.64
+  m_Center: {x: -0.48, y: 0.32, z: 0}

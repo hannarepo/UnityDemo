@@ -24,9 +24,9 @@ MonoBehaviour:
   <SphereCastLayers>k__BackingField:
     serializedVersion: 2
     m_Bits: 64
-  <HurtTime>k__BackingField: 0.4
-  <AggroTime>k__BackingField: 0.8
+  <HurtTime>k__BackingField: 0.6
+  <AggroTime>k__BackingField: 1.2
   <ChargeSpeed>k__BackingField: 3
-  <AttackTime>k__BackingField: 0.5
-  <AttackDistance>k__BackingField: 4.5
-  <CooldownTime>k__BackingField: 2.5
+  <AttackTime>k__BackingField: 0.7
+  <AttackDistance>k__BackingField: 4.8
+  <CooldownTime>k__BackingField: 3
