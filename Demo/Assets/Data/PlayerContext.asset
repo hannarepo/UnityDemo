@@ -18,3 +18,4 @@ MonoBehaviour:
   <AttackTime>k__BackingField: 0.4
   <SpinAttackTime>k__BackingField: 0.55
   <HurtTime>k__BackingField: 0.8
+  <VictoryTime>k__BackingField: 4
