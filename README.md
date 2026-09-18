@@ -7,23 +7,31 @@ Player has the following states:
  - Idle
  - Walk
  - Sprint
- - Attack while idle
- - Attack while walking
+ - Attack
+ - Spin attack
+ - Victory
  - Hurt
  - Dead
+
+https://github.com/user-attachments/assets/6b803943-e08f-4e69-966c-932e569824fd
+
 
 ## Enemy
 Enemy has a finite state machine with no state tracking.
 The enemy has the following states:
  - Idle
- - Walk
+ - Patrol
  - Aggro
+ - Charge
  - Attack
  - Cooldown
  - Hurt
  - Dead
 
 The enemy patrols on a waypoint path that can be either looping or a ping pong path.
+
+https://github.com/user-attachments/assets/86122588-60af-46ba-af13-09026bdf3998
+
 
 ## Third party
 All art assets are from third parties, downloaded from Unity Asset Store.
