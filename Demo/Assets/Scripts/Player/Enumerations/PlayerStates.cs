@@ -11,6 +11,7 @@ namespace UnityDemo
         Sprint,
         Attack,
         SpinAttack,
+        Victory,
         Hurt,
         Dead
     }

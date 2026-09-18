@@ -39,12 +39,14 @@ namespace UnityDemo.Player
         {
             _controls.Enable();
             _health.OnDamage += OnTakeDamage;
+            Enemy.DeadState.OnEnemyDeath += OnEnemyDeath;
         }
 
         private void OnDisable()
         {
             _controls.Disable();
             _health.OnDamage -= OnTakeDamage;
+            Enemy.DeadState.OnEnemyDeath -= OnEnemyDeath;
         }
 
         private void Update()
@@ -62,17 +64,19 @@ namespace UnityDemo.Player
         private void Initialize()
         {
             PlayerStates idleTransitions = 
-                PlayerStates.Walk | PlayerStates.Sprint | PlayerStates.Attack | PlayerStates.SpinAttack | PlayerStates.Hurt | PlayerStates.Dead;
+                PlayerStates.Walk | PlayerStates.Sprint | PlayerStates.Attack | PlayerStates.SpinAttack | PlayerStates.Hurt | PlayerStates.Dead | PlayerStates.Victory;
             PlayerStates walkTransitions =
-                PlayerStates.Idle | PlayerStates.Sprint | PlayerStates.Attack | PlayerStates.SpinAttack | PlayerStates.Hurt | PlayerStates.Dead;
+                PlayerStates.Idle | PlayerStates.Sprint | PlayerStates.Attack | PlayerStates.SpinAttack | PlayerStates.Hurt | PlayerStates.Dead | PlayerStates.Victory;
             PlayerStates sprintTransitions =
-                PlayerStates.Idle | PlayerStates.Walk | PlayerStates.Hurt | PlayerStates.Dead;
+                PlayerStates.Idle | PlayerStates.Walk | PlayerStates.Hurt | PlayerStates.Dead | PlayerStates.Victory;
             PlayerStates attackTransitions =
-                PlayerStates.Idle | PlayerStates.Walk | PlayerStates.SpinAttack | PlayerStates.Hurt | PlayerStates.Dead;
+                PlayerStates.Idle | PlayerStates.Walk | PlayerStates.SpinAttack | PlayerStates.Hurt | PlayerStates.Dead  | PlayerStates.Victory;
             PlayerStates spinAttackTransitions =
-                PlayerStates.Walk | PlayerStates.Sprint | PlayerStates.Idle | PlayerStates.Attack | PlayerStates.Hurt | PlayerStates.Dead;
+                PlayerStates.Walk | PlayerStates.Sprint | PlayerStates.Idle | PlayerStates.Attack | PlayerStates.Hurt | PlayerStates.Dead  | PlayerStates.Victory;
+            PlayerStates victoryTransitions =
+                PlayerStates.Idle | PlayerStates.Walk;
             PlayerStates hurtTransitions =
-                PlayerStates.Idle | PlayerStates.Walk | PlayerStates.Sprint | PlayerStates.Attack | PlayerStates.SpinAttack | PlayerStates.Dead;
+                PlayerStates.Idle | PlayerStates.Walk | PlayerStates.Sprint | PlayerStates.Attack | PlayerStates.SpinAttack | PlayerStates.Dead  | PlayerStates.Victory;
             PlayerStates deadTransitions =
                 PlayerStates.None;
 
@@ -83,6 +87,7 @@ namespace UnityDemo.Player
                 new WalkState(PlayerStates.Walk, walkTransitions, _playerContext),
                 new SprintState(PlayerStates.Sprint, sprintTransitions, _playerContext),
                 new SpinAttackState(PlayerStates.SpinAttack, spinAttackTransitions, _playerContext),
+                new VictoryState(PlayerStates.Victory, victoryTransitions, _playerContext),
                 new HurtState(PlayerStates.Hurt, hurtTransitions, _playerContext),
                 new DeadState(PlayerStates.Dead, deadTransitions, _playerContext)
             };
@@ -94,6 +99,11 @@ namespace UnityDemo.Player
             Debug.Log("Player took damage, current health: " + currentHealth);
             if (currentHealth == 0) ChangeState(PlayerStates.Dead);
             else ChangeState(PlayerStates.Hurt);
+        }
+
+        private void OnEnemyDeath()
+        {
+            if (_pushdownAutomaton.CurrentState != PlayerStates.Dead) ChangeState(PlayerStates.Victory);
         }
 
         #endregion

@@ -21,6 +21,7 @@ namespace UnityDemo.Player
         [field: SerializeField] public float AttackTime { get; set; }
         [field: SerializeField] public float SpinAttackTime { get; set; }
         [field: SerializeField] public float HurtTime { get; set; }
+        [field: SerializeField] public float VictoryTime { get; set; }
         public PlayerWeapon Weapon { get; set; }
     }
 }

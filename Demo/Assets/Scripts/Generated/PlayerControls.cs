@@ -256,7 +256,7 @@ namespace UnityDemo
                 {
                     ""name"": """",
                     ""id"": ""89478c76-bd30-424b-9a87-b3774b6bc4b1"",
-                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
