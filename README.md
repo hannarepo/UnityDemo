@@ -1,8 +1,9 @@
 # UnityDemo
-A small demo of player and enemy state machines in Unity.
+A small demo of player and enemy state machines in Unity. Code for finite state machine and pushdown automaton can be found [here](https://github.com/hannarepo/UnityDemo/tree/main/Demo/Assets/Scripts/StateMachine).
 
 ## Player
-Player uses a pushdown automaton to keep track of previous states.
+Player uses a pushdown automaton to keep track of previous states. Player related code is located [here](https://github.com/hannarepo/UnityDemo/tree/main/Demo/Assets/Scripts/Player).
+
 Player has the following states:
  - Idle
  - Walk
@@ -17,7 +18,8 @@ https://github.com/user-attachments/assets/6b803943-e08f-4e69-966c-932e569824fd
 
 
 ## Enemy
-Enemy has a finite state machine with no state tracking.
+Enemy has a finite state machine with no state tracking. Enemy related code is located [here](https://github.com/hannarepo/UnityDemo/tree/main/Demo/Assets/Scripts/Enemy).
+
 The enemy has the following states:
  - Idle
  - Patrol
